@@ -11,13 +11,12 @@ from app.use_cases.match_player_profile import MatchPlayerProfileUseCase
 
 engine = create_engine("sqlite:///./test.db", connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine)
-
 Base.metadata.create_all(bind=engine)
 
 def get_match_player_use_case() -> MatchPlayerProfileUseCase:
-    db = SessionLocal()
-    repo = SqlAlchemyPlayerRepo(db)
-    
+    repo = SqlAlchemyPlayerRepo(SessionLocal)
+
+    # Set up mocked campaigns
     campaigns = [
         Campaign(
             game="mygame",
@@ -33,8 +32,11 @@ def get_match_player_use_case() -> MatchPlayerProfileUseCase:
             enabled=True,
             last_updated=datetime.now(timezone.utc)
         )
-]
+    ]
 
-    fetcher = StubCampaignFetcher(campaigns)  
+    # Inject stub and repo into the service
+    fetcher = StubCampaignFetcher(campaigns)
     service = ProfileMatcherService(campaign_fetcher=fetcher, profile_repository=repo)
+
+    # Return the use case with all dependencies 
     return MatchPlayerProfileUseCase(service)
