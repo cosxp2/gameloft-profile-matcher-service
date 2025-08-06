@@ -13,11 +13,6 @@ def db_session_factory():
     Base.metadata.create_all(bind=engine)
     return sessionmaker(bind=engine)
 
-@pytest.fixture
-def base_profile_db_entry(base_profile):
-    from utils.conversions import domain_to_db_model
-    return domain_to_db_model(base_profile)
-
 def test_get_by_id_returns_domain_model(db_session_factory, base_profile_db_entry):
     repo = SqlAlchemyPlayerRepo(db_session_factory)
     
