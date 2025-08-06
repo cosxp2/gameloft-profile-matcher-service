@@ -1,5 +1,7 @@
 import pytest
 from datetime import datetime, timedelta, timezone
+from app.adapters.db.sqlalchemy_models import Base
+from app.adapters.dependencies import engine
 from app.domain.models.player import PlayerProfile, Inventory, Device, Clan
 from app.domain.models.campaign import (
     Campaign, CampaignMatchers, LevelMatcher, HasMatcher, DoesNotHaveMatcher
@@ -67,3 +69,14 @@ def base_profile(base_inventory, now):
         clan=Clan(id=42, name='test_clan'),
         custom_field='test_field'
     )
+
+
+@pytest.fixture
+def base_profile_db_entry(base_profile):
+    from utils.conversions import domain_to_db_model
+    return domain_to_db_model(base_profile)
+
+@pytest.fixture(autouse=True)
+def clean_database():
+    Base.metadata.drop_all(bind=engine)
+    Base.metadata.create_all(bind=engine)
