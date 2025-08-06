@@ -22,7 +22,7 @@ class Campaign(BaseModel):
     game: str
     name: str
     priority: float
-    matchers: dict[CampaignMatchers]
+    matchers: CampaignMatchers
     start_date: datetime
     end_date: datetime
     enabled: bool

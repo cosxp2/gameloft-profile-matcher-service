@@ -1,7 +1,6 @@
 from datetime import datetime
-from typing import List, Dict
-from pydantic import BaseModel, Field, Optional
-from campaign import Campaign
+from typing import List, Dict, Optional
+from pydantic import BaseModel, Field
 
 class Device(BaseModel):
     id: int
