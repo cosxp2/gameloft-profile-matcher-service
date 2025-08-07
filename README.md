@@ -88,13 +88,27 @@ Navigate to [http://localhost:8000/docs](http://localhost:8000/docs) to explore 
 
 ### 5. Example API Call
 
-Once the server is running and DB is seeded, make a GET request:
+Once the server is running and DB is seeded, make a GET request.
+
+#### Interactive interface
 
 ```
 GET /get_client_config/test_player
 ```
 
-It should return a valid player profile JSON with matched campaigns (if any).
+#### Via terminal:
+
+```bash
+curl http://127.0.0.1:8000/get_client_config/test_player
+```
+
+For pretty print:
+
+```bash
+curl -s http://127.0.0.1:8000/get_client_config/test_player | jq
+```
+
+It should return a valid player profile JSON with matched campaigns ('mycampaign' as hardcoded in the stub).
 
 ### 6. Run Tests
 
