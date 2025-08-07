@@ -55,7 +55,7 @@ pip install pipenv
 ### 1. Clone the Repository
 
 ```bash
-https://github.com/cosxp2/gameloft-profile-matcher-service.git
+git clone https://github.com/cosxp2/gameloft-profile-matcher-service.git
 cd gameloft-profile-matcher-service
 ```
 
@@ -71,7 +71,7 @@ pipenv shell
 To populate the database with a test player:
 
 ```bash
-python scripts/seed_player.py
+python -m scripts.load_test_player
 ```
 
 > This will insert a player into the SQLite `test.db`.
