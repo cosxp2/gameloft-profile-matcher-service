@@ -9,6 +9,7 @@ pytest = "*"
 fastapi = "*"
 uvicorn = "*"
 httpx = "*"
+sqlalchemy = "*"
 
 [dev-packages]
 
